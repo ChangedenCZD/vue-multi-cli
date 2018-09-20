@@ -1,6 +1,6 @@
 {
   "name": "vue-multi-cli",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "基于vue-cli 3.0的多页面项目模板脚手架。支持Typescript。",
   "author": {
     "name": "changeden"
