@@ -4,7 +4,6 @@
 ![NPM download](https://img.shields.io/npm/dm/vue-multi-cli.svg)
 ![NPM download](https://img.shields.io/npm/dw/vue-multi-cli.svg)
 ![npm](https://img.shields.io/npm/l/vue-multi-cli.svg)
-![Package Quality](http://npm.packagequality.com/shield/vue-multi-cli.svg)
 
 
 ![GitHub watchers](https://img.shields.io/github/watchers/ChangedenCZD/vue-multi-cli.svg)
