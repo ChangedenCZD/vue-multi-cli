@@ -1,5 +1,7 @@
 const FileUtils = require('../utils/FileUtils');
 
+const ASSETS_SCSS_BASE = 'assets/scss/base';
+
 const genConfigFile = (configFilePath, fixPath, moduleTitle) => {
   FileUtils.write(configFilePath, `{"redirect-url": "/${fixPath}","page-title": "${moduleTitle}"}`);
 };
@@ -34,7 +36,7 @@ export default new ${key}();
 };
 
 const genScssFile = (dir, className, srcDir) => {
-  FileUtils.write(`${dir}module.scss`, `@import "${FileUtils.relativePath(dir, srcDir)}assets/scss/base";
+  FileUtils.write(`${dir}module.scss`, `@import "${FileUtils.relativePath(dir, srcDir)}${ASSETS_SCSS_BASE}";
 .${className} {}`);
 };
 
@@ -50,30 +52,27 @@ const genModuleFiles = (dir, className, fixPath, title, srcDir) => {
   genTsFile(dir, className, false);
 };
 
-const genIndexFile = (dir) => {
-  FileUtils.write(`${dir}index.ts`, `import Component from './component.vue';
+const genIndexFile = (dir, fixPath, srcDir) => {
+  const componentTempDir = `${srcDir}.components/${fixPath}`;
+  FileUtils.mkdir(componentTempDir);
+  FileUtils.write(`${componentTempDir}/index.vue`, `<script>export default {};</script>`);
+  FileUtils.write(`${dir}index.ts`, `import Component from '@/.components/${fixPath}/index.vue';
 export default Component;`);
 };
 
-const ASSETS_SCSS_BASE = 'assets/scss/base';
-
-const genComponentVueFile = (dir, className, srcDir) => {
-  FileUtils.write(`${dir}component.vue`, `<template>
-  <section class="${className}"></section>
-</template>
-<script>
-  import Component from './component';
-  export default Component;
-</script>
-<style scoped="true" lang="scss">
-  @import "${FileUtils.relativePath(dir, srcDir)}${ASSETS_SCSS_BASE}";
-  .${className}{}
-</style>`);
+const genComponentVueFile = (dir, className) => {
+  FileUtils.write(`${dir}component.vue`, `<section class="${className}"></section>`);
 };
 
-const genComponentFiles = (dir, className, srcDir) => {
-  genIndexFile(dir);
-  genComponentVueFile(dir, className, srcDir);
+const genComponentScssFile = (dir, className, srcDir) => {
+  FileUtils.write(`${dir}component.scss`, `@import "${FileUtils.relativePath(dir, srcDir)}${ASSETS_SCSS_BASE}";
+.${className} {}`);
+};
+
+const genComponentFiles = (dir, className, srcDir, fixPath) => {
+  genIndexFile(dir, fixPath, srcDir);
+  genComponentVueFile(dir, className);
+  genComponentScssFile(dir, className, srcDir);
   genTsFile(dir, className, true);
 };
 
