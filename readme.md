@@ -1,3 +1,4 @@
+# 存在重大BUG，不再维护，请移步至[optimize-vue-cli](https://github.com/ChangedenCZD/optimize-vue-cli)
 #vue-multi-cli
 
 ![NPM version](https://img.shields.io/npm/v/vue-multi-cli.svg)
